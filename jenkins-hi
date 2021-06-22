@@ -4,10 +4,27 @@ agent any
 stages
 
 {
-	stage ('Lets print Hi')
-	{
-	  steps
-	   { sh 'echo hi'}
-	}
+  stage ('stage 1')
+  { steps
+     { sh ' echo download code'}
+  }
+   
+   stage ('stage 2')
+   {
+     steps
+       {sh ' echo test the code'}
+   }
+
+   stage ('stage 3')
+   {
+     steps
+      {sh 'echo build the code'}
+   }
+
+   stage ('stage 4')
+   {
+     steps
+      { sh 'echo deploying the code artifacts'}
+   }
 }
 }
