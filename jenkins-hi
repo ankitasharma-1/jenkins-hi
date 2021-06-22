@@ -4,27 +4,33 @@ agent any
 stages
 
 {
-  stage ('stage 1')
+  stage ('stage 1: scm checkout')
   { steps
-     { sh ' echo download code'}
+     {git branch: 'dev', url: 'https://github.com/ankitasharma-1/jenkins-hi.git'}
   }
    
-   stage ('stage 2')
+   stage ('stage 2: compilation')
    {
      steps
-       {sh ' echo test the code'}
+       {
+         withMaven(jdk: 'jdk', maven: 'mvn') 
+           {
+             sh 'mvn compile'
+           }
+       }
    }
 
-   stage ('stage 3')
+   stage ('stage 3: testing')
    {
      steps
-      {sh 'echo build the code'}
+      {
+      withMaven(jdk: 'jdk', maven: 'mvn') 
+           {
+             sh 'mvn test'
+           }
+      }
    }
 
-   stage ('stage 4')
-   {
-     steps
-      { sh 'echo deploying the code artifacts'}
-   }
+
 }
 }
